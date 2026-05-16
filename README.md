@@ -1,75 +1,155 @@
-# WheelShare 🚗
+# WheelShare - Vehicle Rental Platform
 
-A P2P vehicle rental platform where users can rent or list bikes and cars directly — no middleman.
+A full-stack vehicle rental platform built with React and Node.js, featuring real-time chat, booking management, and admin dashboard.
 
----
+## 🚀 Features
 
-## Problem Statement
+- **User Authentication** - JWT-based secure login/registration
+- **Vehicle Listings** - Browse and search available vehicles
+- **Booking System** - Real-time booking with calendar integration
+- **Real-time Chat** - Socket.io powered messaging between users
+- **Admin Dashboard** - Comprehensive admin panel for managing users and vehicles
+- **KYC Verification** - Document upload and verification system
+- **Responsive Design** - Mobile-first design with Tailwind CSS
 
-In India, short-term vehicle rentals are expensive and limited to commercial services. Private vehicle owners have idle assets while renters overpay. WheelShare bridges this gap by connecting owners and renters directly on a trusted platform.
+## 🛠️ Tech Stack
 
----
+### Frontend
+- **React 19** - Modern React with hooks
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Smooth animations
+- **React Router** - Client-side routing
+- **Socket.io Client** - Real-time communication
+- **Recharts** - Data visualization
 
-## Tech Stack
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database with Mongoose ODM
+- **Socket.io** - Real-time bidirectional communication
+- **JWT** - JSON Web Tokens for authentication
+- **Multer** - File upload handling
+- **bcryptjs** - Password hashing
 
-| Layer | Tech |
-|-------|------|
-| Frontend | React 19, Vite, Tailwind CSS v4 |
-| Backend | Node.js, Express |
-| Database | MongoDB, Mongoose |
-| Auth | JWT, bcryptjs |
-| Realtime | Socket.io |
-| Icons | Lucide React |
-| Routing | React Router v7 |
+## 📦 Installation
 
----
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
 
-## Getting Started
+### Local Development Setup
 
-**Prerequisites:** Node.js v18+, MongoDB on port 27017
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Aarishshahnawaz/wheel-share.git
+   cd wheel-share
+   ```
 
-```bash
-# Terminal 1 — Backend
-cd wheelshare-server
-node index.js
+2. **Setup Backend**
+   ```bash
+   cd wheelshare-server
+   npm install
+   cp .env.example .env
+   # Edit .env with your configuration
+   npm run dev
+   ```
 
-# Terminal 2 — Frontend
-cd wheelshare-client
-npm run dev
+3. **Setup Frontend**
+   ```bash
+   cd ../wheelshare-client
+   npm install
+   cp .env.example .env
+   # Edit .env with your configuration
+   npm run dev
+   ```
+
+4. **Access the application**
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:5000
+
+## 🌐 Deployment
+
+### Deploy to Render
+
+1. **Fork/Clone this repository**
+2. **Connect to Render**
+   - Sign up at [render.com](https://render.com)
+   - Connect your GitHub repository
+   - Use the included `render.yaml` for automatic deployment
+
+3. **Set Environment Variables in Render Dashboard**
+   ```
+   MONGO_URI=your_mongodb_atlas_connection_string
+   JWT_SECRET=your_jwt_secret
+   ADMIN_SECRET=your_admin_secret
+   ```
+
+4. **Update URLs after deployment**
+   - Update `ALLOWED_ORIGINS` in backend service
+   - Update `VITE_API_URL` in frontend service
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+## 📁 Project Structure
+
+```
+wheel-share/
+├── wheelshare-client/          # React frontend
+│   ├── src/
+│   │   ├── components/         # Reusable components
+│   │   ├── pages/             # Page components
+│   │   ├── admin/             # Admin dashboard
+│   │   └── assets/            # Static assets
+│   ├── public/                # Public assets
+│   └── package.json
+├── wheelshare-server/          # Node.js backend
+│   ├── models/                # MongoDB models
+│   ├── routes/                # API routes
+│   ├── middleware/            # Custom middleware
+│   └── package.json
+├── render.yaml                # Render deployment config
+└── README.md
 ```
 
-- App → `http://localhost:5173`
-- API → `http://localhost:5000`
+## 🔧 Environment Variables
 
----
+### Backend (.env)
+```
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/wheelshare
+JWT_SECRET=your_jwt_secret_here
+ADMIN_SECRET=your_admin_secret_here
+NODE_ENV=development
+ALLOWED_ORIGINS=http://localhost:5173
+```
 
-## API Endpoints
+### Frontend (.env)
+```
+VITE_API_URL=http://localhost:5000/api
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/signup` | Register user |
-| POST | `/api/auth/login` | Login user |
-| POST | `/api/auth/admin-login` | Admin login |
-| GET | `/api/vehicles` | Get all vehicles |
-| POST | `/api/vehicles` | List a vehicle |
-| PATCH | `/api/vehicles/:id` | Update vehicle |
-| DELETE | `/api/vehicles/:id` | Delete vehicle |
-| POST | `/api/bookings` | Create booking |
-| GET | `/api/bookings/my` | My bookings |
-| GET | `/api/admin/users` | All users (admin) |
-| GET | `/api/admin/kyc` | KYC requests (admin) |
-| PATCH | `/api/admin/kyc/:id` | Approve/reject KYC |
-| GET | `/api/admin/stats` | Platform stats |
+## 🤝 Contributing
 
----
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
+## 📄 License
 
-## Future Scope
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-- **Payment Gateway** — Razorpay/Stripe integration for online payments
-- **GPS Live Tracking** — Real-time vehicle tracking during rental
-- **Rating & Reviews** — Post-trip reviews for owners and renters
-- **Mobile App** — React Native version for iOS & Android
-- **AI Pricing** — Dynamic pricing based on demand and season
-- **Insurance API** — Auto-generate trip insurance at booking
-- **Multi-city Expansion** — Scale beyond current city support
+## 🐛 Issues
+
+If you encounter any issues, please create an issue on GitHub with:
+- Description of the problem
+- Steps to reproduce
+- Expected behavior
+- Screenshots (if applicable)
+
+## 📞 Support
+
+For support, email [your-email@example.com] or create an issue on GitHub.
