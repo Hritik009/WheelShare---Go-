@@ -4,7 +4,7 @@ const AuthContext = createContext(null);
 const STORAGE_KEY  = 'ws_user';
 const USERS_KEY    = 'ws_local_users'; // offline user store
 const DARK_KEY     = 'ws_dark';
-const API_BASE     = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE     = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
 const API_TIMEOUT  = 4000; // ms before we consider server offline
 
 // ── Persistence helpers ───────────────────────────────────────────────────────
