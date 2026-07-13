@@ -35,9 +35,9 @@ A full-stack vehicle rental platform built with React and Node.js, featuring rea
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js (v16 or higher)
+- Node.js 20.19+ (the frontend Vite toolchain requires Node 20.19+ or 22.12+)
 - MongoDB (local or Atlas)
-- npm or yarn
+- npm
 
 ### Local Development Setup
 
@@ -47,27 +47,33 @@ A full-stack vehicle rental platform built with React and Node.js, featuring rea
    cd wheel-share
    ```
 
-2. **Setup Backend**
+2. **Set up the backend**
    ```bash
    cd wheelshare-server
    npm install
-   cp .env.example .env
-   # Edit .env with your configuration
+   copy .env.example .env
+   # Edit .env and set your MongoDB URI and secrets
    npm run dev
    ```
+   The API will run at http://localhost:5000.
 
-3. **Setup Frontend**
+3. **Set up the frontend**
    ```bash
    cd ../wheelshare-client
    npm install
-   cp .env.example .env
-   # Edit .env with your configuration
-   npm run dev
+   copy .env.example .env
+   # Edit .env if you need a custom API URL
+   npm run dev -- --host 0.0.0.0
    ```
+   The Vite app will run at http://localhost:5173.
 
-4. **Access the application**
+4. **Verify the services**
    - Frontend: http://localhost:5173
-   - Backend API: http://localhost:5000
+   - Backend health check: http://localhost:5000/api/health
+
+### Notes
+- If your machine is on an older Node version, upgrade to Node 20.19+ before running the frontend.
+- The backend expects MongoDB to be reachable through the MONGO_URI value in the backend .env file.
 
 ## 🌐 Deployment
 
