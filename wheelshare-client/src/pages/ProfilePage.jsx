@@ -4,6 +4,8 @@ import DashboardLayout from '../components/dashboard/DashboardLayout';
 import { useAuth } from '../context/AuthContext';
 import { useVehicleStore } from '../context/VehicleStoreContext';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const KYC_STATUS = {
   pending:  { label: 'Pending ⏳',   color: 'bg-yellow-100 text-yellow-700 border-yellow-300', icon: <Clock size={13} /> },
   verified: { label: 'KYC Verified ✅', color: 'bg-green-100 text-green-700 border-green-300',  icon: <CheckCircle size={13} /> },
@@ -12,14 +14,41 @@ const KYC_STATUS = {
 
 function DocUpload({ label, hint, value, onChange }) {
   const ref = useRef();
+  const { user } = useAuth();
+  const { showToast } = useVehicleStore();
   const [preview, setPreview] = useState(value || null);
 
-  const handle = (e) => {
+  const handle = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => { setPreview(ev.target.result); onChange(ev.target.result); };
-    reader.readAsDataURL(file);
+
+    const token = user?.token;
+    if (!token) return;
+
+    const formData = new FormData();
+    formData.append('photos', file);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/upload`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Upload failed');
+
+      const imageUrl = data.data?.[0]?.url;
+      if (!imageUrl) throw new Error('No upload URL returned');
+
+      setPreview(imageUrl);
+      onChange(imageUrl);
+    } catch (err) {
+      console.error('Upload failed', err);
+      showToast('Image upload failed. Please try again.', 'error');
+    }
   };
 
   return (
